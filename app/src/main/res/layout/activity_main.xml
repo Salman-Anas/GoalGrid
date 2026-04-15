@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20.dp">
+            android:padding="20dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="GoalGrid"
+                        android:text="TaskSphere"
                         android:textColor="#00FFFF"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -43,11 +43,11 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_width="48.dp"
-                    android:layout_height="48.dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_alignParentEnd="true"
                     android:background="@drawable/circle_bg"
-                    android:padding="12.dp"
+                    android:padding="12dp"
                     android:src="@android:drawable/ic_lock_idle_alarm"
                     app:tint="#00FFFF" />
             </RelativeLayout>
@@ -55,21 +55,21 @@
             <!-- Quick Alarm Card -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="80.dp"
-                android:layout_marginTop="20.dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="20dp"
                 app:cardBackgroundColor="#1A1A1E"
-                app:cardCornerRadius="16.dp"
-                app:cardElevation="0.dp">
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:padding="16.dp">
+                    android:padding="16dp">
 
                     <ImageView
-                        android:layout_width="24.dp"
-                        android:layout_height="24.dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:src="@android:drawable/ic_menu_recent_history"
                         app:tint="#FF00FF" />
 
@@ -77,7 +77,7 @@
                         android:id="@+id/quickNoteInput"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12.dp"
+                        android:layout_marginStart="12dp"
                         android:layout_weight="1"
                         android:background="@null"
                         android:hint="Quick Alarm Note..."
@@ -86,8 +86,8 @@
 
                     <ImageButton
                         android:id="@+id/addQuickAlarm"
-                        android:layout_width="36.dp"
-                        android:layout_height="36.dp"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:background="@drawable/circle_bg_cyan"
                         android:src="@android:drawable/ic_input_add"
                         app:tint="@android:color/black" />
@@ -100,7 +100,7 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20.dp"
+            android:layout_marginHorizontal="20dp"
             android:background="@drawable/tab_bg"
             app:tabIndicatorHeight="0dp"
             app:tabRippleColor="@null"
@@ -132,7 +132,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="24.dp"
+        android:layout_margin="24dp"
         android:src="@android:drawable/ic_input_add"
         app:backgroundTint="#00FFFF"
         app:tint="@android:color/black" />
