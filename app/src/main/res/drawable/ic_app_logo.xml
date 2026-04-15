@@ -4,9 +4,14 @@
     android:viewportWidth="100"
     android:viewportHeight="100">
 
+    <!-- Background Shape -->
+    <path
+        android:fillColor="@color/dark_bg"
+        android:pathData="M20,10 L80,10 A10,10 0 0 1 90,20 L90,80 A10,10 0 0 1 80,90 L20,90 A10,10 0 0 1 10,80 L10,20 A10,10 0 0 1 20,10 Z" />
+
     <!-- Grid lines -->
     <path
-        android:strokeColor="#4DFFFFFF"
+        android:strokeColor="#33FFFFFF"
         android:strokeWidth="1"
         android:pathData="M35,25 L35,75 M65,25 L65,75 M25,35 L75,35 M25,65 L75,65" />
 
@@ -21,15 +26,20 @@
         android:pathData="M42,42 L58,42 L58,58 L42,58 Z" />
     <!-- Bottom Right (The Goal) -->
     <path
-        android:fillColor="#00FFFF"
+        android:fillColor="@color/cyan_neon"
         android:pathData="M67,67 L73,67 L73,73 L67,73 Z" />
 
     <!-- Stylized 'G' / Grid Element -->
     <path
-        android:strokeColor="#FF00FF"
-        android:strokeWidth="4"
+        android:strokeColor="@color/magenta_neon"
+        android:strokeWidth="3"
         android:strokeLineCap="round"
-        android:strokeLineJoin="round"
         android:pathData="M70,30 L30,30 L30,70 L70,70 L70,50 L55,50" />
+
+    <!-- Neon Glow effect (simplified) -->
+    <path
+        android:strokeColor="@color/cyan_neon"
+        android:strokeWidth="1"
+        android:pathData="M65,65 L75,65 L75,75 L65,75 Z" />
 
 </vector>

@@ -1,100 +1,78 @@
 package com.example.goalgrid.ui.components
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.example.goalgrid.data.Habit
-import com.example.goalgrid.ui.theme.CyanNeon
+import com.example.goalgrid.databinding.LayoutAddEditHabitBinding
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun AddEditHabitSheet(
-    habit: Habit? = null,
-    onDismiss: () -> Unit,
-    onSave: (Habit) -> Unit
-) {
-    var name by remember { mutableStateOf(habit?.name ?: "") }
-    var dailyTarget by remember { mutableStateOf(habit?.dailyTarget?.toFloat() ?: 5f) }
-    var priority by remember { mutableStateOf(habit?.priority?.toFloat() ?: 50f) }
+class AddEditHabitSheet(
+    private val habit: Habit? = null,
+    private val onSave: (Habit) -> Unit
+) : BottomSheetDialogFragment() {
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(24.dp)
-            .navigationBarsPadding()
-    ) {
-        Text(
-            text = if (habit == null) "New Habit" else "Edit Habit",
-            style = MaterialTheme.typography.headlineSmall,
-            color = Color.White
-        )
-        Spacer(modifier = Modifier.height(16.dp))
+    private var _binding: LayoutAddEditHabitBinding? = null
+    private val binding get() = _binding!!
 
-        OutlinedTextField(
-            value = name,
-            onValueChange = { name = it },
-            label = { Text("Habit Name") },
-            modifier = Modifier.fillMaxWidth(),
-            colors = TextFieldDefaults.colors(
-                focusedTextColor = Color.White,
-                unfocusedTextColor = Color.White,
-                focusedContainerColor = Color.Transparent,
-                unfocusedContainerColor = Color.Transparent
-            )
-        )
-        Spacer(modifier = Modifier.height(24.dp))
+    override fun onCreateView(
+        index: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = LayoutAddEditHabitBinding.inflate(index, container, false)
+        return binding.root
+    }
 
-        Text(
-            text = "Daily Target: ${dailyTarget.toInt()}",
-            style = MaterialTheme.typography.bodyMedium,
-            color = Color.White
-        )
-        Slider(
-            value = dailyTarget,
-            onValueChange = { dailyTarget = it },
-            valueRange = 1f..50f,
-            steps = 49,
-            colors = SliderDefaults.colors(thumbColor = CyanNeon, activeTrackColor = CyanNeon)
-        )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text(
-            text = "Priority: ${priority.toInt()}",
-            style = MaterialTheme.typography.bodyMedium,
-            color = Color.White
-        )
-        Slider(
-            value = priority,
-            onValueChange = { priority = it },
-            valueRange = 1f..100f,
-            colors = SliderDefaults.colors(thumbColor = CyanNeon, activeTrackColor = CyanNeon)
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Button(
-            onClick = {
-                val newHabit = habit?.copy(
-                    name = name,
-                    dailyTarget = dailyTarget.toInt(),
-                    priority = priority.toInt()
-                ) ?: Habit(
-                    name = name,
-                    dailyTarget = dailyTarget.toInt(),
-                    priority = priority.toInt()
-                )
-                onSave(newHabit)
-            },
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = CyanNeon, contentColor = Color.Black)
-        ) {
-            Text("Save Habit")
+        // Set initial values if editing
+        habit?.let {
+            binding.titleText.text = "Edit Habit"
+            binding.habitNameInput.setText(it.name)
+            binding.targetSlider.value = it.dailyTarget.toFloat()
+            binding.targetText.text = "Daily Target: ${it.dailyTarget}"
+            binding.prioritySlider.value = it.priority.toFloat()
+            binding.priorityText.text = "Priority: ${it.priority}"
         }
-        Spacer(modifier = Modifier.height(8.dp))
+
+        // Target Slider Listener
+        binding.targetSlider.addOnChangeListener { _, value, _ ->
+            binding.targetText.text = "Daily Target: ${value.toInt()}"
+        }
+
+        // Priority Slider Listener
+        binding.prioritySlider.addOnChangeListener { _, value, _ ->
+            binding.priorityText.text = "Priority: ${value.toInt()}"
+        }
+
+        // Save Button Listener
+        binding.saveButton.setOnClickListener {
+            val name = binding.habitNameInput.text.toString()
+            if (name.isBlank()) {
+                binding.habitNameInput.error = "Name cannot be empty"
+                return@setOnClickListener
+            }
+
+            val newHabit = habit?.copy(
+                name = name,
+                dailyTarget = binding.targetSlider.value.toInt(),
+                priority = binding.prioritySlider.value.toInt()
+            ) ?: Habit(
+                name = name,
+                dailyTarget = binding.targetSlider.value.toInt(),
+                priority = binding.prioritySlider.value.toInt()
+            )
+
+            onSave(newHabit)
+            dismiss()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
